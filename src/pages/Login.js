@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 import { ToastContainer, toast } from "react-toastify";
+import Bulb from "./Bulb";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,9 +56,10 @@ const Login = () => {
             pauseOnHover
             theme='light'
           />
+           <Bulb/>
       <div
-        className="py-5"
-        style={{ background: "#8443f5", minHeight: "100vh" }}
+        className="py-5 loginbanner"
+        style={{ minHeight: "96.7vh" }}
       >
         <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
           <h3 className="text-center">Login</h3>
@@ -92,7 +94,7 @@ const Login = () => {
               ) : null}
             </div>
             <div style={{ marginTop: "10px", color: "white" }}>
-              <Link to={"/forgot-password"} style={{ textDecoration: "none" }}>
+              <Link to={"https://appcq.vercel.app/forgot-password"} style={{ textDecoration: "none" }}>
                 Forgot Password
               </Link>
             </div>

@@ -116,5 +116,28 @@ main{
 .error{
   color: red;
   font-size: 15px;
-  
+}
+
+.loginbanner{
+  background: url('https://res.cloudinary.com/ddkdeeue3/image/upload/v1717232115/etjiwqhhqw8qjyvopjeo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.bulb {
+  width: 20px;
+  height: 20px;
+  background-color: #f8f9fa;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.bulb.on {
+  background-color: rgb(56, 246, 103);
+}
+
+.bulb.off {
+  background-color: red;
 }
