@@ -33,8 +33,7 @@ let schema = yup.object().shape({
 
 const AddProduct = () => {
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const dispatch = useDispatch(); 
     const location = useLocation()
     const getProductId = location.pathname.split('/')[3]
 
@@ -131,16 +130,17 @@ const AddProduct = () => {
     const [color,setColor] = useState();
 
 
-    imgState?.forEach(i=>{
-      img.push({
-        public_id:i.public_id,
-        url:i.url
-      })
-    })
+    useEffect(()=>{
+      imgState?.forEach(i=>{
+        img.push({
+          public_id:i.public_id,
+          url:i.url
+        })
+      })  
+    },[imgState])
+
 
     
-    
-
     useEffect(()=>{
       formik.values.color = color ? color : []
       formik.values.images = img
@@ -180,8 +180,6 @@ const AddProduct = () => {
                 </div>
 
                 <CustomInput name="price" onChange={formik.handleChange("price")} onBlur={formik.handleBlur("price")} type="number" placeholder={`Enter Product Price`} value={formik.values.price}/>
-
-
 
                 <div className='error'>
                 {formik.touched.price && formik.errors.price}
@@ -249,17 +247,17 @@ const AddProduct = () => {
                     </section>
                   )}
                 </Dropzone>
-               </div>
+               </div> 
                 <div className='showImages d-flex'>
                     {
-                   isPending === false ?  imgState?.map((i,j)=>{
+                   isPending === false ? imgState?.map((i,j)=>{
                         return (
                    <div className='position-relative' key={j} >
                       <button className='fs-5 btn btn-danger position-absolute' onClick={()=>dispatch(deleteImg(i.public_id))} style={{right:"0px"}}>X</button>
                        <img className='img-fluid mx-4' style={{width:"200px",height:"200px"}} src={i.url}  alt="" />  
                    </div>
                         )
-                      }) : <Loading/>
+                      })  : <Loading/>
                     }
                 </div>
 

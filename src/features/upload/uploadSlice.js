@@ -14,7 +14,7 @@ export const resetStateUpload = createAction("Reset_All")
 
 export const uploadImg = createAsyncThunk("upload/images",async (data, thunkAPI)=>{
     try {
-        console.log(data);
+        // console.log(data);
         const formData = new FormData();
         data.forEach(element => {
             formData.append("images",element)
@@ -24,6 +24,8 @@ export const uploadImg = createAsyncThunk("upload/images",async (data, thunkAPI)
         return thunkAPI.rejectWithValue(error);
     }
 })
+
+
 
 export const deleteImg = createAsyncThunk("delete/images",async (id, thunkAPI)=>{
     try {

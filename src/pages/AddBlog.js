@@ -13,6 +13,7 @@ import {getBlogCategoryList} from '../features/blogCategory/bCategorySlice'
 import { deleteImg, uploadImg } from '../features/upload/uploadSlice';
 import { createBlog, getBlog, resetState, updateBlog } from '../features/blog/blogSlice';
 import { toast } from 'react-toastify';
+import Loading from './Loading';
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -27,9 +28,10 @@ const AddBlog = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[3]
+  const {isPending} = useSelector(state=>state.upload)
 
   const categoryState = useSelector(state=>state.blogCategory.blogcategories)
-  const imgState = useSelector(state=>state.upload.images.data)
+  const imgState = useSelector(state=>state.upload.images)
   const newproduct = useSelector(state=>state.blog)
   const {isSuccess,isError,isLoading,createdBlog,updatedTitle,updatedDescription,updatedCategory} = newproduct
 
@@ -89,12 +91,16 @@ const AddBlog = () => {
     },[])
 
     const img = []
-    imgState?.forEach(i=>{
-      img.push({
-        public_id:i.public_id,
-        url:i.url
+
+    useEffect(()=>{
+      imgState?.forEach(i=>{
+        img.push({
+          public_id:i.public_id,
+          url:i.url
+        })
       })
-    })
+    },[imgState])
+    
 
     useEffect(()=>{
       if(isSuccess && createdBlog ==="Success")
@@ -130,14 +136,14 @@ const AddBlog = () => {
 
                <div className='showImages d-flex'>
                     {
-                      imgState?.map((i,j)=>{
+                   isPending === false ? imgState?.map((i,j)=>{
                         return (
                    <div className='position-relative' key={j} >
                       <button className='fs-5 btn btn-danger position-absolute' onClick={()=>dispatch(deleteImg(i.public_id))} style={{right:"0px"}}>X</button>
-                       <img className='img-fluid mx-4' style={{width:"200px",height:"200px"}} src={i.url}  alt="" />
+                       <img className='img-fluid mx-4' style={{width:"200px",height:"200px"}} src={i.url}  alt="" />  
                    </div>
                         )
-                      })
+                      })  : <Loading/>
                     }
                 </div>
 
